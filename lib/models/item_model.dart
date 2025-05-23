@@ -7,6 +7,8 @@ class ItemModel {
   final String difficulty;
   final List<String> tags;
   final int duration;
+  final String profileImage;
+  final String profileName;
 
   const ItemModel({
     required this.id,
@@ -17,11 +19,13 @@ class ItemModel {
     required this.difficulty,
     required this.tags,
     required this.duration,
+    required this.profileImage,
+    required this.profileName,
   });
 
-  factory ItemModel.fromJson(Map<String, dynamic> json) {
+  factory ItemModel.fromJson(String id, Map<String, dynamic> json) {
     return ItemModel(
-      id: json['id'],
+      id: id,
       name: json['name'],
       description: json['description'],
       imageUrl: json['imageUrl'],
@@ -29,6 +33,8 @@ class ItemModel {
       difficulty: json['difficulty'],
       tags: List<String>.from(json['tags']),
       duration: json['duration'],
+      profileImage: json['profileImage'] ?? '',
+      profileName: json['profileName'] ?? '',
     );
   }
 
@@ -42,6 +48,8 @@ class ItemModel {
       'difficulty': difficulty,
       'tags': tags,
       'duration': duration,
+      'profileImage': profileImage,
+      'profileName': profileName,
     };
   }
 }

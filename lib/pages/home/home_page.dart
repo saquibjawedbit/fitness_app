@@ -31,6 +31,18 @@ class _HomePageState extends State<HomePage>
       backgroundColor: Theme.of(context).colorScheme.onSurface,
       appBar: _appBar(),
       body: _body(context),
+      bottomNavigationBar: _navBar(context),
+    );
+  }
+
+  BottomNavigationBar _navBar(BuildContext context) {
+    return BottomNavigationBar(
+      backgroundColor: Theme.of(context).colorScheme.onSurface,
+      items: const [
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+        BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
+        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+      ],
     );
   }
 
