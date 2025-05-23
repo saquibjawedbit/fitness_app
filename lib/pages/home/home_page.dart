@@ -135,7 +135,7 @@ class _HomePageState extends State<HomePage>
     return Container(
       margin: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
-        color: Colors.grey.shade300,
+        color: Colors.grey.shade500,
         shape: BoxShape.circle,
       ),
       width: 35,

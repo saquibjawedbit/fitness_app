@@ -62,7 +62,7 @@ class ProgramCard extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: 100,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
