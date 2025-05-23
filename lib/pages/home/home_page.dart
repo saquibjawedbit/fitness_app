@@ -31,41 +31,46 @@ class _HomePageState extends State<HomePage>
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.onSurface,
       appBar: _appBar(),
-      body: Column(
-        children: [
-          Material(
-            elevation: 0, // Shadow
-            child: Container(
-              color: Theme.of(context).colorScheme.onSurface,
-              child: TabBar(
-                controller: _tabController,
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                labelColor: Theme.of(context).colorScheme.primary,
-                labelStyle: GoogleFonts.poppins(
-                  textStyle: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
-                  ),
-                ),
-                indicatorSize: TabBarIndicatorSize.tab,
-                indicatorWeight: 3,
-                dividerHeight: 3,
-                unselectedLabelColor: Colors.black54,
-                indicatorColor: Theme.of(context).colorScheme.primary,
-                tabs: const [
-                  Tab(text: 'My Programs'),
-                  Tab(text: 'Explore Programs'),
-                ],
-              ),
-            ),
+      body: _body(context),
+    );
+  }
+
+  Column _body(BuildContext context) {
+    return Column(
+      children: [
+        _tabViewController(context),
+        Expanded(
+          child: TabBarView(
+            controller: _tabController,
+            children: const [MyProgramsPage(), ExploreProgramsPage()],
           ),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: const [MyProgramsPage(), ExploreProgramsPage()],
-            ),
+        ),
+      ],
+    );
+  }
+
+  Material _tabViewController(BuildContext context) {
+    return Material(
+      elevation: 0, // Shadow
+      child: Container(
+        color: Theme.of(context).colorScheme.onSurface,
+        child: TabBar(
+          controller: _tabController,
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          labelColor: Theme.of(context).colorScheme.primary,
+          labelStyle: GoogleFonts.poppins(
+            textStyle: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
           ),
-        ],
+          indicatorSize: TabBarIndicatorSize.tab,
+          indicatorWeight: 3,
+          dividerHeight: 3,
+          unselectedLabelColor: Colors.black54,
+          indicatorColor: Theme.of(context).colorScheme.primary,
+          tabs: const [
+            Tab(text: 'My Programs'),
+            Tab(text: 'Explore Programs'),
+          ],
+        ),
       ),
     );
   }
@@ -76,33 +81,41 @@ class _HomePageState extends State<HomePage>
       shadowColor: Colors.black,
       elevation: 4,
       titleSpacing: 8,
-      title: Text(
-        'Home',
-        style: GoogleFonts.poppins(
-          textStyle: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 20,
-            color: Colors.black,
-          ),
+      title: _title(),
+      leadingWidth: 45,
+      leading: _appBarIcons(),
+    );
+  }
+
+  Container _appBarIcons() {
+    return Container(
+      margin: const EdgeInsets.all(8.0),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade300,
+        shape: BoxShape.circle,
+      ),
+      width: 35,
+      height: 36,
+      child: Center(
+        child: IconButton(
+          icon: Icon(Icons.arrow_back_ios_new, size: 18, weight: 900),
+          color: Colors.black,
+          padding: EdgeInsets.zero,
+          constraints: BoxConstraints.tightFor(width: 36, height: 36),
+          onPressed: () {},
         ),
       ),
-      leadingWidth: 45,
-      leading: Container(
-        margin: const EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-          color: Colors.grey.shade300,
-          shape: BoxShape.circle,
-        ),
-        width: 35,
-        height: 36,
-        child: Center(
-          child: IconButton(
-            icon: Icon(Icons.arrow_back_ios_new, size: 18, weight: 900),
-            color: Colors.black,
-            padding: EdgeInsets.zero,
-            constraints: BoxConstraints.tightFor(width: 36, height: 36),
-            onPressed: () {},
-          ),
+    );
+  }
+
+  Text _title() {
+    return Text(
+      'Home',
+      style: GoogleFonts.poppins(
+        textStyle: TextStyle(
+          fontWeight: FontWeight.w600,
+          fontSize: 20,
+          color: Colors.black,
         ),
       ),
     );
