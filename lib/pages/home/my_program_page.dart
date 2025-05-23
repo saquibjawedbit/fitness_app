@@ -1,6 +1,5 @@
 import 'package:fitness_app/pages/home/widgets/program_card.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class MyProgramsPage extends StatelessWidget {
   const MyProgramsPage({super.key});
@@ -14,23 +13,19 @@ class MyProgramsPage extends StatelessWidget {
         children: [
           Text(
             "My Programs",
-            style: GoogleFonts.poppins(
-              textStyle: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 24,
-                color: Colors.black,
-              ),
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 24,
+              color: Colors.black,
             ),
           ),
           SizedBox(height: 2),
           Text(
             "Explore to find your new goal",
-            style: GoogleFonts.poppins(
-              textStyle: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 14,
-                color: Colors.black54,
-              ),
+            style: TextStyle(
+              fontWeight: FontWeight.w400,
+              fontSize: 14,
+              color: Colors.black54,
             ),
           ),
           SizedBox(height: 16),
@@ -79,12 +74,10 @@ class MyProgramsPage extends StatelessWidget {
                   border: InputBorder.none,
                   filled: true,
                   fillColor: Colors.white,
-                  hintStyle: GoogleFonts.poppins(
-                    textStyle: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 12,
-                      color: Colors.grey.shade600,
-                    ),
+                  hintStyle: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                    color: Colors.grey.shade600,
                   ),
                 ),
                 cursorColor: Colors.grey.shade600,

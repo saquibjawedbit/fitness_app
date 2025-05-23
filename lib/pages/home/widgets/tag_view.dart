@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class TagView extends StatelessWidget {
   const TagView({super.key});
@@ -18,12 +17,10 @@ class TagView extends StatelessWidget {
           SizedBox(width: 8),
           Text(
             "Fitness",
-            style: GoogleFonts.poppins(
-              textStyle: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 16,
-                color: Colors.white,
-              ),
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 16,
+              color: Colors.white,
             ),
           ),
         ],

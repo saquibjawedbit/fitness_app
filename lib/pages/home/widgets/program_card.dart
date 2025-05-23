@@ -1,6 +1,5 @@
 import 'package:fitness_app/pages/home/widgets/tag_view.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ProgramCard extends StatelessWidget {
   const ProgramCard({super.key});
@@ -54,11 +53,9 @@ class ProgramCard extends StatelessWidget {
                 SizedBox(width: 8),
                 Text(
                   "Chris Bumstead",
-                  style: GoogleFonts.poppins(
-                    textStyle: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w700,
-                    ),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ],
