@@ -35,14 +35,49 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  BottomNavigationBar _navBar(BuildContext context) {
-    return BottomNavigationBar(
-      backgroundColor: Theme.of(context).colorScheme.onSurface,
-      items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-      ],
+  Widget _navBar(BuildContext context) {
+    int _selectedIndex = 0;
+    return StatefulBuilder(
+      builder: (context, setState) {
+        return BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          onTap: (index) {
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          backgroundColor: Colors.white,
+          elevation: 6,
+          items: [
+            BottomNavigationBarItem(
+              icon: _buildNavIcon(Icons.home, _selectedIndex == 0),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: _buildNavIcon(Icons.fitness_center, _selectedIndex == 1),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: _buildNavIcon(Icons.calendar_today, _selectedIndex == 2),
+              label: '',
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildNavIcon(IconData icon, bool isSelected) {
+    return Container(
+      width: 36,
+      height: 36,
+      decoration: BoxDecoration(
+        color: isSelected ? Colors.black : Colors.grey[500],
+        shape: BoxShape.circle,
+      ),
+      child: Icon(icon, color: Colors.white, size: 24),
     );
   }
 
