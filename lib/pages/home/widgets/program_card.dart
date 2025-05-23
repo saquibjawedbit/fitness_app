@@ -91,6 +91,11 @@ class ProgramCard extends StatelessWidget {
                   tagName: item.difficulty,
                   isInverted: true,
                   icon: Icons.circle,
+                  iconColor: item.difficulty == "Easy"
+                      ? Colors.green
+                      : item.difficulty == "Medium"
+                      ? Colors.yellow
+                      : Colors.red,
                 ),
                 TagView(
                   tagName: "${item.duration} Months",

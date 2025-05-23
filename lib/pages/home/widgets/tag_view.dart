@@ -20,9 +20,7 @@ class TagView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       margin: const EdgeInsets.only(right: 8),
       decoration: BoxDecoration(
-        color:
-            iconColor ??
-            (isInverted ? Colors.white : Color.fromARGB(255, 76, 136, 255)),
+        color: (isInverted ? Colors.white : Color.fromARGB(255, 76, 136, 255)),
         borderRadius: BorderRadius.circular(24),
         border: Border.all(color: Color.fromARGB(255, 76, 136, 255)),
       ),
@@ -31,9 +29,11 @@ class TagView extends StatelessWidget {
           Icon(
             icon,
             size: 18,
-            color: !isInverted
-                ? Colors.white
-                : Color.fromARGB(255, 76, 136, 255),
+            color:
+                iconColor ??
+                (!isInverted
+                    ? Colors.white
+                    : Color.fromARGB(255, 76, 136, 255)),
           ),
           SizedBox(width: 8),
           Text(
