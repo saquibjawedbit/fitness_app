@@ -1,8 +1,11 @@
+import 'package:fitness_app/models/item_model.dart';
 import 'package:fitness_app/pages/home/widgets/tag_view.dart';
 import 'package:flutter/material.dart';
 
 class ProgramCard extends StatelessWidget {
-  const ProgramCard({super.key});
+  const ProgramCard({super.key, required this.item});
+
+  final ItemModel item;
 
   @override
   Widget build(BuildContext context) {
@@ -45,14 +48,12 @@ class ProgramCard extends StatelessWidget {
             Row(
               children: [
                 CircleAvatar(
-                  backgroundImage: NetworkImage(
-                    'https://placehold.co/100x100.png',
-                  ),
+                  backgroundImage: NetworkImage(item.profileImage),
                   radius: 16,
                 ),
                 SizedBox(width: 8),
                 Text(
-                  "Chris Bumstead",
+                  item.profileName,
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w700,
@@ -79,7 +80,7 @@ class ProgramCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(24),
         ),
         child: Text(
-          '\$999',
+          "₹${item.price}",
           style: TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: 16,
@@ -92,7 +93,7 @@ class ProgramCard extends StatelessWidget {
 
   Image _image() {
     return Image.network(
-      'https://placehold.co/600x400.png',
+      item.imageUrl,
       fit: BoxFit.cover,
       width: double.infinity,
     );
