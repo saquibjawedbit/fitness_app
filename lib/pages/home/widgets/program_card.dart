@@ -22,8 +22,25 @@ class ProgramCard extends StatelessWidget {
           width: double.infinity,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(16),
-            child: Stack(children: [_image(), _priceTag(), _infoBar()]),
+            child: Stack(
+              children: [_image(), _priceTag(), _infoBar(), _title()],
+            ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _title() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      alignment: AlignmentGeometry.directional(-1, 0),
+      child: Text(
+        item.name,
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 24,
         ),
       ),
     );
@@ -62,7 +79,26 @@ class ProgramCard extends StatelessWidget {
               ],
             ),
             SizedBox(height: 8),
-            Row(children: [TagView()]),
+            Row(
+              children: [
+                for (var tag in item.tags)
+                  TagView(
+                    tagName: tag,
+                    isInverted: false,
+                    icon: Icons.flag_outlined,
+                  ),
+                TagView(
+                  tagName: item.difficulty,
+                  isInverted: true,
+                  icon: Icons.circle,
+                ),
+                TagView(
+                  tagName: "${item.duration} Months",
+                  isInverted: true,
+                  icon: Icons.access_time_rounded,
+                ),
+              ],
+            ),
           ],
         ),
       ),
