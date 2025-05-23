@@ -58,9 +58,7 @@ class _HomePageState extends State<HomePage>
           controller: _tabController,
           padding: const EdgeInsets.symmetric(vertical: 8),
           labelColor: Theme.of(context).colorScheme.primary,
-          labelStyle: GoogleFonts.poppins(
-            textStyle: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-          ),
+          labelStyle: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
           indicatorSize: TabBarIndicatorSize.tab,
           indicatorWeight: 3,
           dividerHeight: 3,
@@ -111,12 +109,10 @@ class _HomePageState extends State<HomePage>
   Text _title() {
     return Text(
       'Home',
-      style: GoogleFonts.poppins(
-        textStyle: TextStyle(
-          fontWeight: FontWeight.w600,
-          fontSize: 20,
-          color: Colors.black,
-        ),
+      style: TextStyle(
+        fontWeight: FontWeight.w600,
+        fontSize: 20,
+        color: Colors.black,
       ),
     );
   }
