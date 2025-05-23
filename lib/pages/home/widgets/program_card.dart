@@ -1,6 +1,7 @@
 import 'package:fitness_app/models/item_model.dart';
 import 'package:fitness_app/pages/home/widgets/tag_view.dart';
 import 'package:flutter/material.dart';
+import 'package:fitness_app/pages/item/item_page.dart';
 
 class ProgramCard extends StatelessWidget {
   const ProgramCard({super.key, required this.item});
@@ -13,17 +14,26 @@ class ProgramCard extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 16.0),
       child: AspectRatio(
         aspectRatio: 1.3,
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: Colors.grey.shade400),
-            borderRadius: BorderRadius.circular(16),
-          ),
-          width: double.infinity,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: Stack(
-              children: [_image(), _priceTag(), _infoBar(), _title()],
+        child: InkWell(
+          borderRadius: BorderRadius.circular(16),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ItemPage(item: item)),
+            );
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(color: Colors.grey.shade400),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            width: double.infinity,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: Stack(
+                children: [_image(), _priceTag(), _infoBar(), _title()],
+              ),
             ),
           ),
         ),
