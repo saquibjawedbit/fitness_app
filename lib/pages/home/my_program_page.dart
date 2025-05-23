@@ -13,6 +13,7 @@ class MyProgramsPage extends StatefulWidget {
 
 class _MyProgramsPageState extends State<MyProgramsPage> {
   late ScrollController _scrollController;
+  // _searchController and _statusOptions are defined only once here
 
   @override
   void initState() {
@@ -27,6 +28,7 @@ class _MyProgramsPageState extends State<MyProgramsPage> {
   @override
   void dispose() {
     _scrollController.dispose();
+    _searchController.dispose();
     super.dispose();
   }
 
@@ -111,6 +113,12 @@ class _MyProgramsPageState extends State<MyProgramsPage> {
     );
   }
 
+  final TextEditingController _searchController = TextEditingController();
+  final List<String> _statusOptions = ["All", "Easy", "Medium", "Hard"];
+
+  // Only one dispose method should exist
+  // Only one dispose method should exist. Remove any duplicate dispose methods in this class.
+
   Container _seardhBar() {
     return Container(
       height: 60,
@@ -124,37 +132,167 @@ class _MyProgramsPageState extends State<MyProgramsPage> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(left: 8.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search programs, trainers, goals...',
-                  border: InputBorder.none,
-                  filled: true,
-                  fillColor: Colors.white,
-                  hintStyle: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12,
-                    color: Colors.grey.shade600,
-                  ),
-                ),
-                cursorColor: Colors.grey.shade600,
+              child: Consumer<ItemProvider>(
+                builder: (context, provider, _) {
+                  return TextField(
+                    controller: _searchController,
+                    decoration: InputDecoration(
+                      hintText: 'Search programs, trainers, goals...',
+                      border: InputBorder.none,
+                      filled: true,
+                      fillColor: Colors.white,
+                      hintStyle: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12,
+                        color: Colors.grey.shade600,
+                      ),
+                    ),
+                    cursorColor: Colors.grey.shade600,
+                    onChanged: (value) {
+                      provider.setSearchQuery(value);
+                    },
+                  );
+                },
               ),
             ),
           ),
-          IconButton(
-            icon: Icon(Icons.search, color: Colors.grey.shade700, size: 20),
-            onPressed: () {},
+          Consumer<ItemProvider>(
+            builder: (context, provider, _) {
+              return IconButton(
+                icon: Icon(Icons.search, color: Colors.grey.shade700, size: 20),
+                onPressed: () {
+                  provider.setSearchQuery(_searchController.text);
+                },
+              );
+            },
           ),
           Container(height: 24, width: 1, color: Colors.grey.shade400),
-          IconButton(
-            icon: Icon(
-              Icons.filter_list,
-              color: Colors.grey.shade700,
-              size: 20,
-            ),
-            onPressed: () {},
+          Consumer<ItemProvider>(
+            builder: (context, provider, _) {
+              return IconButton(
+                icon: Icon(
+                  Icons.filter_list,
+                  color: Colors.grey.shade700,
+                  size: 20,
+                ),
+                onPressed: () async {
+                  String? selected = await _showDialog(context, provider);
+                  if (selected != null && selected != provider.status) {
+                    provider.setStatus(selected);
+                  }
+                },
+              );
+            },
           ),
         ],
       ),
+    );
+  }
+
+  Future<String?> _showDialog(BuildContext context, ItemProvider provider) {
+    return showDialog<String>(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.white,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Select Status',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.close, color: Colors.grey.shade600),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                ..._statusOptions.map((status) {
+                  final isSelected = provider.status == status;
+                  return InkWell(
+                    borderRadius: BorderRadius.circular(12),
+                    onTap: () {
+                      Navigator.pop(context, status);
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 12,
+                        horizontal: 12,
+                      ),
+                      decoration: BoxDecoration(
+                        color: isSelected
+                            ? Colors.blue.shade50
+                            : Colors.transparent,
+                        borderRadius: BorderRadius.circular(12),
+                        border: isSelected
+                            ? Border.all(color: Colors.blue, width: 1.5)
+                            : Border.all(color: Colors.grey.shade300, width: 1),
+                      ),
+                      child: Row(
+                        children: [
+                          AnimatedContainer(
+                            duration: Duration(milliseconds: 200),
+                            width: 22,
+                            height: 22,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: isSelected
+                                    ? Colors.blue
+                                    : Colors.grey.shade400,
+                                width: 2,
+                              ),
+                              color: isSelected
+                                  ? Colors.blue
+                                  : Colors.transparent,
+                            ),
+                            child: isSelected
+                                ? Icon(
+                                    Icons.check,
+                                    color: Colors.white,
+                                    size: 16,
+                                  )
+                                : null,
+                          ),
+                          SizedBox(width: 12),
+                          Text(
+                            status,
+                            style: TextStyle(
+                              fontWeight: isSelected
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                              color: isSelected ? Colors.blue : Colors.black87,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

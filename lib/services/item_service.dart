@@ -7,15 +7,18 @@ class ItemService {
 
   Future<List<ItemModel>> getItems({
     String serachQuery = "",
+    String status = "",
     int limit = 20,
     DocumentSnapshot? startAfterDoc,
   }) async {
     try {
-      debugPrint("Fetching items with search query: $serachQuery");
+      debugPrint(
+        "Fetching items with search query: $serachQuery, status: $status",
+      );
 
       Query query = FirebaseFirestore.instance.collection('items');
-      if (serachQuery.isNotEmpty) {
-        // For Firestore, you can't do contains, so we filter after fetch
+      if (status.isNotEmpty && status != "All") {
+        query = query.where('difficulty', isEqualTo: status);
       }
       if (startAfterDoc != null) {
         query = query.startAfterDocument(startAfterDoc);
